@@ -1,7 +1,6 @@
 package com.techgenizer.hibernate;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import javax.persistence.EntityManager;
 
