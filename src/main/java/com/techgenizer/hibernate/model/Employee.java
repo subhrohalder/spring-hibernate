@@ -6,12 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class Employee {
 
-	@TableGenerator(name = "employee_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val",allocationSize = 100)
+//	@TableGenerator(name = "employee_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val",allocationSize = 100)
+	@GenericGenerator(name="emp_id",strategy = "com.techgenizer.hibernate.idgen.CustomRandomIDGen")
+	@GeneratedValue(generator = "emp_id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "employee_gen")
+//	@GeneratedValue(strategy = GenerationType.TABLE, generator = "employee_gen")
 	private Long id;
 	private String name;
 
