@@ -17,7 +17,7 @@ import com.techgenizer.hibernate.repository.EmployeeRepository;
 	public void insertEmployee() {
 		Employee employee = new Employee();
 //		employee.setId(1544l);
-		employee.setName("Raj Y");
+		employee.setName("Raj");
 		 
 		employeeRepository.save(employee);
 	}
