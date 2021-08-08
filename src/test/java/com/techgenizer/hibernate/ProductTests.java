@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techgenizer.hibernate.model.Product;
 import com.techgenizer.hibernate.repository.ProductRepository;
@@ -178,6 +180,33 @@ class ProductTests {
 		List<Product> productList = productSortRepository.findByIdIn(Arrays.asList(1,2), pageable);
 		productList.forEach(p -> System.out.println(p));
 
+	}
+	
+	
+	
+	@Test
+	public void testGetAllByJpql() {
+		
+		List<String> productList = productRepository.getAllByJpql();
+		productList.forEach(p -> System.out.println(p));
+	}
+	
+	
+	@Test
+	public void testgetByParticularName() {
+		List <Product> productList = productRepository.getByParticularName("Samsung");
+		
+		productList.forEach(p -> System.out.println(p));
+	}
+	
+	
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	public void testDeleteByParticularName() {
+		 productRepository.deleteByParticularName("Samsung");
+	
 	}
 	
 

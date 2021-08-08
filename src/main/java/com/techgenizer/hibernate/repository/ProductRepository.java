@@ -2,7 +2,10 @@ package com.techgenizer.hibernate.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.techgenizer.hibernate.model.Product;
 
@@ -25,6 +28,19 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	
 	
 	public List<Product> findByIdIn(List<Object> list);
+	
+	@Query("Select p.name from Product p")
+	public List<String> getAllByJpql ();
+	
+	
+	@Query("Select product from Product product where name=:name")
+	public List<Product> getByParticularName(@Param("name")String name);
+	
+	
+	
+	@Query("Delete from Product product where name=:name")
+	@Modifying
+	public void deleteByParticularName(@Param("name")String name);
 	
 	
 	
