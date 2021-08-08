@@ -3,23 +3,32 @@ package com.techgenizer.hibernate;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.techgenizer.hibernate.model.Product;
 import com.techgenizer.hibernate.repository.ProductRepository;
+import com.techgenizer.hibernate.repository.ProductSortRepository;
 
 @SpringBootTest
-class SpringHibernateApplicationTests {
+class ProductTests {
 
 	@Autowired
 	ProductRepository productRepository;
+
+	@Autowired
+	ProductSortRepository productSortRepository;
 
 	@Autowired
 	EntityManager entityManager;
@@ -120,15 +129,56 @@ class SpringHibernateApplicationTests {
 
 		productList.forEach(p -> System.out.println(p));
 	}
-	
-	
-	
+
 	@Test
 	public void testFindByIdIn() {
-	      Integer a[] = new Integer[] { 1, 2, 3 };
+		Integer a[] = new Integer[] { 1, 2, 3 };
 		List<Product> productList = productRepository.findByIdIn(Arrays.asList(a));
 		productList.forEach(p -> System.out.println(p));
 
 	}
+
+	@Test
+	public void testFindAllPaging() {
+		Pageable pageable = PageRequest.of(1, 2);
+		Page<Product> productList = productSortRepository.findAll(pageable);
+
+		productList.forEach(p -> System.out.println(p));
+
+	}
+
+	@Test
+	public void testFindAllSort() {
+		Iterable<Product> productList = productSortRepository.findAll(Sort.by(Direction.DESC, "name"));
+		productList.forEach(p -> System.out.println(p));
+
+	}
+
+	@Test
+	public void testFindAllPagingAndSort() {
+
+		Pageable pageable = PageRequest.of(0, 4, Direction.DESC, "name");
+
+		Page<Product> productList = productSortRepository.findAll(pageable);
+
+		productList.forEach(p -> System.out.println(p));
+
+	}
+	
+	
+	@Test
+	
+	public void testPageableFinder() {
+		
+		Pageable pageable = PageRequest.of(0, 2, Direction.DESC, "descp");
+		
+	
+
+		
+		List<Product> productList = productSortRepository.findByIdIn(Arrays.asList(1,2), pageable);
+		productList.forEach(p -> System.out.println(p));
+
+	}
+	
 
 }
