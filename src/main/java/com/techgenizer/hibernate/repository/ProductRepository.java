@@ -47,7 +47,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	public List<Product> getAllByNative ();
 	
 	
-	@Query(value="Select * from Product product where name=:name",nativeQuery=true)
+	@Query(value="Select * from Product  where name=:name",nativeQuery=true)
 	public List<Product> getByParticularNameNative(@Param("name")String name);
 	
 	
