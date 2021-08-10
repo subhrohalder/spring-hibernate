@@ -43,6 +43,14 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	public void deleteByParticularName(@Param("name")String name);
 	
 	
+	@Query(value = "Select * from Product" ,nativeQuery=true)
+	public List<Product> getAllByNative ();
+	
+	
+	@Query(value="Select * from Product product where name=:name",nativeQuery=true)
+	public List<Product> getByParticularNameNative(@Param("name")String name);
+	
+	
 	
 	
 	

@@ -209,5 +209,23 @@ class ProductTests {
 	
 	}
 	
+	
+	@Test
+	public void testGetAllByNative() {
+		
+		List<Product> productList = productRepository.getAllByNative();
+		productList.forEach(p -> System.out.println(p));
+	}
+	
+	
+	@Test
+	public void testgetByParticularNameNative() {
+		List <Product> productList = productRepository.getByParticularNameNative("Noise");
+		
+		productList.forEach(p -> System.out.println(p));
+	}
+	
+	
+	
 
 }
